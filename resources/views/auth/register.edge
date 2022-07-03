@@ -1,0 +1,66 @@
+@layout('layout')
+
+@section('body')
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-lg-6 m-auto">
+        <h1>Login</h1>
+        <form action="" method="POST" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col">
+                    <div class="">
+                        @!component('components/input', {
+                        'name': 'firstname',
+                        'label': 'Firstname',
+                        'required': true,
+                        })
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="">
+                        @!component('components/input', {
+                        'name': 'lastname',
+                        'label': 'Lastname',
+                        'required': true,
+                        })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="">
+                        @!component('components/input', {
+                        'name': 'email',
+                        'label': 'Email',
+                        'required': true,
+                        })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="mb-3">
+                        @!component('components/input', {
+                        'id': 'password',
+                        'name': 'password',
+                        'label': 'Password',
+                        'type': 'password',
+                        'required': true,
+                        })
+                    </div>
+
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-primary">
+                    Register
+                </button>
+                <a href="{{ route('login') }}" class="btn btn-link">
+                    Already have an account ?
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@endsection

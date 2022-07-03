@@ -1,0 +1,16 @@
+@layout('layout')
+
+@section('body')
+
+<h2>Update Category => <i>{{category.name}}</i></h2>
+@include('categories/form')
+
+<script>
+    const inputList = document.getElementsByTagName('input')
+    console.log(inputList);
+
+    for (let i = 0; i < inputList.length; i++) {
+        inputList[i].setAttribute('form', 'saveForm')   
+    }
+</script>
+@end

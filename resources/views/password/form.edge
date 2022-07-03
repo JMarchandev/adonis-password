@@ -1,0 +1,26 @@
+<form method="POST" enctype="multipart/form-data">
+    @!component('components/input', {
+    id: 'name',
+    name: 'name',
+    label: 'Name',
+    value: password.name,
+    required: true
+    })
+    @!component('components/input', {
+    id: 'password',
+    name: 'password',
+    label: 'Password',
+    value: password.password,
+    type: 'password',
+    required: true,
+    password_generate: true
+    })
+    @!component('components/select', {
+    id: 'category_id',
+    name: 'category_id',
+    options: categories,
+    label: 'Category',
+    value: password.categoryId,
+    })
+    <button class="btn btn-primary mt-3">Save</button>
+</form>

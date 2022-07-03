@@ -1,0 +1,36 @@
+@layout('layout')
+
+@section('body')
+
+<section>
+    <h2>Passwords</h2>
+    <div class="mb-3">
+        <a class="btn btn-primary" href="{{ route('passwords.create') }}">Create new Password</a>
+        <a class="btn btn-primary" href="{{ route('categories.create') }}">Create new category</a>
+    </div>
+</section>
+
+<main>
+    <ul class="list-group mb-3">
+        @each (password in passwords)
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <p class="m-0">{{ password.name }}
+                @if (password.category)
+                <a href="{{ route('categories.show', {id: password.category.id }) }}"
+                    class="mx-2 p-1 badge bg-{{JSON.parse(password.category.color).background}} text-{{JSON.parse(password.category.color).text_color}}">
+                    {{ password.category.name }}
+                </a>
+                @endif
+            </p>
+            <div>
+                <form action="{{ route('passwords.show', {id: password.id}) }}?_method=DELETE" method="POST">
+                    <a class="btn btn-secondary" href="{{ route('passwords.show', {id: password.id}) }}">Update</a>
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </li>
+        @endeach
+    </ul>
+</main>
+
+@endsection

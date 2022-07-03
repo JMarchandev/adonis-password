@@ -1,0 +1,41 @@
+<form id="saveForm" action="" method="POST" enctype="multipart/form-data"></form>
+@if (category)
+<form id="destroyForm" action="{{ route('categories.show', {id: category.id}) }}?_method=DELETE" method="POST"
+    enctype="multipart/form-data"></form>
+@endif
+@!component('components/input', {
+id: 'name',
+name: 'name',
+label: 'Name',
+className: 'mb-3',
+value: category ? category.name : "",
+required: true,
+})
+
+<div class="row">
+    @each (color in colors)
+    <div class="col mb-3">
+        <div class="d-flex flex-column text-center">
+            <span class="bg-{{color.background}} text-{{color.text_color}} p-3">{{color.name}}</span>
+            <input form="saveForm" value='{"background": "{{color.background}}", "text_color": "{{color.text_color}}"}'
+                class="form-check-input m-auto mt-3" type="radio" name="color" id="radio-{{color.background}}">
+        </div>
+    </div>
+    @endeach
+</div>
+<button class="btn btn-primary mt-3" form="saveForm">Save</button>
+@if (category)
+<button class="btn btn-danger mt-3" form="destroyForm">Delete</button>
+@endif
+
+
+
+@if (category)
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) { 
+        const categoryName = '{{JSON.parse(category.color).background}}'
+        const selectedRadioColor = document.getElementById(`radio-${categoryName}`)
+        return selectedRadioColor.checked = true
+    })
+</script>
+@endif

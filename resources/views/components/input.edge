@@ -1,0 +1,59 @@
+<div class="mt-3">
+    <label for="{{ id }}">
+        {{ label }}
+        @if(required)
+        <span class="text-danger">*</span>
+        @endif
+    </label>
+
+    @if(type !== 'password')
+    <input id="{{ id }}"
+        class="form-control {{ className }} {{ flashMessages.has(`errors.${name}`) ? 'is-invalid' : ""}}"
+        type="{{ type }}" name="{{ name }}" value="{{ flashMessages.get(name) ||  value || "" }}" />
+    @else
+    <div class="input-group">
+        <input id="{{ id }}"
+            class="form-control {{ className }} {{ flashMessages.has(`errors.${name}`) ? 'is-invalid' : ""}}"
+            type="{{ type }}" name="{{ name }}" value="{{ flashMessages.get(name) ||  value || "" }}" />
+
+        @if(password_generate)
+        <button id="show-{{ id }}" class="btn btn-outline-secondary" type="button">Show</button>
+        <button id="password_generate" class="btn btn-outline-secondary" type="button">Generate</button>
+        @endif
+
+    </div>
+    @endif
+    @if(flashMessages.has(`errors.${name}`))
+    <div class="text-danger" style="font-size: 80%">
+        {{ flashMessages.get(`errors.${name}`)[0] }}
+    </div>
+    @endif
+</div>
+
+<script>
+    if ({{ type === 'password'}}) {
+        const showButton = document.getElementById('show-{{ id }}')
+        showButton.addEventListener('click', function(event) {
+            const input = document.getElementById('{{ id }}')
+            if(input.type === 'password') {
+                input.type = 'text'
+                showButton.innerHTML = 'Hide'
+            } else {
+                input.type = 'password'
+                showButton.innerHTML = 'Show'
+            }
+        })
+    }
+        
+
+    if ({{password_generate}}) {
+        const generatePasswordButton = document.getElementById('password_generate')
+        generatePasswordButton.addEventListener('click', function(event) {
+            const pwdChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
+            const pwdLen = 16;
+            const randPassword = Array(pwdLen).fill(pwdChars).map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('');
+            const input = document.getElementById('{{ id }}')
+            input.value = randPassword
+        })
+    }
+</script>

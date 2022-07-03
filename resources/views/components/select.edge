@@ -1,0 +1,19 @@
+<div class="mt-3">
+    <label for="{{ id }}">{{ label }}</label>
+    <select id="{{ id }}" name="{{ name }}"
+        class="form-select {{ flashMessages.has(`errors.${name}`) ? 'is-invalid' : ""}}" aria-label="{{ name }}">
+        <option value="">Select category</option>
+        @each (option in options)
+        <option value="{{ option.id }}">{{ option.name }}</option>
+        @endeach
+    </select>
+    @if(flashMessages.has(`errors.${name}`))
+    <div class="invalid-feedback">
+        {{ flashMessages.get(`errors.${name}`) }}
+    </div>
+    @endif
+</div>
+
+<script>
+    document.getElementById('{{ id }}').value = {{value}} || '';
+</script>
